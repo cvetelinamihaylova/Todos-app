@@ -1,6 +1,13 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const mongoose = require('mongoose');
+const routes = require('./routes/routes');
+
+mongoose
+    .connect('mongodb://localhost:27017/todos-demo', { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(function () {
+        console.log('Database connected')
+    });
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -11,15 +18,9 @@ mustacheInstance.cache = null;
 app.engine('mustache', mustacheInstance);
 app.set('view engine', 'mustache');
 app.set('views', __dirname + '/views');
+app.use('/', routes);
 
-app.get('/', function(req, res){
-    res.render('index', {});
-});
-app.post('/todos', function(req, res){
-    res.json(req.body);
-});
-
-app.listen(3000, function(){
+app.listen(3000, function () {
     console.log('listening on :3000');
 })
 
