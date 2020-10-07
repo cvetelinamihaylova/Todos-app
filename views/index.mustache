@@ -11,5 +11,27 @@
     <input type="text" name="description">
     <button type="submit">Add</button>
     </form>
+    <ul>
+    {{#todos}}
+    <li>
+    <form action="/todos/{{_id}}/completed" method="post">
+    {{description}}
+    <button type="submit">Done</button>
+    </form>
+    </li>
+    {{/todos}}
+    </ul>
+
+    <h3>Done</h3>
+    <ul>
+    {{#doneTodos}}
+    <li>
+    <form action="/todos/{{_id}}/completed" method="post">
+    {{description}} 
+    <button type="submit">Undone</button>
+    </form>
+    </li>
+    {{/doneTodos}}
+    </ul>
 </body>
 </html>
